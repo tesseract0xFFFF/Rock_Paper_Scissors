@@ -1,0 +1,31 @@
+computer choice pseudocode:
+//
+use a random number generator with a range of 1-3.
+store result in a variable.
+use switch statements for each random number. there will be 3 cases (rock, paper, scissors).
+store the switch case return value in a variable.
+//
+
+
+player choice pesudocode:
+//
+make sure promt returns a lowercase string. (to fit the comp choices, 
+which will also be lowercase. that will help with comparisons that will be performed later).
+store prompt value in a variable.
+
+//
+
+
+
+choice evaluation pseuodocode:
+//
+
+check for valid inputs (rock, paper, scissors).
+(use the NOT operator to make it easier to determine whether an input is valid or not).
+
+check for (r,r), (p,p), (s,s) cases by comparing both inputs (must be of same type and value, case included).
+check will be performed by comaring both strings after they have been normalized to lowercase.
+
+check for cases in which the player wins. use the OR operator in an 'if' statement.
+the else case will be if the computer won.
+
