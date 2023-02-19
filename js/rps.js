@@ -51,7 +51,6 @@ function getPlayerChoice () {
 
 
 
-console.log(playRound(computerSelection, playerSelection));
 
 //  this function plays a round.
 function playRound (computerSelection, playerSelection) {
@@ -70,22 +69,57 @@ function playRound (computerSelection, playerSelection) {
 // checks all 3 possibilities in which player wins.
     else if (playerSelection === 'rock' && computerSelection === 'scissors' || playerSelection === 'paper' && computerSelection === 'rock' || playerSelection === 'scissors' && computerSelection === 'paper') {
 
+        playerScore++;
         return "you win! " + playerSelection + " beats " + computerSelection;
     }
 
     else {
 
+        computerScore++;
         return "you lose! " + computerSelection + " beats " + playerSelection;
     }
 
 } 
 
+// those variables keep track of both computer and player scores.
+let playerScore = 0;
+let computerScore = 0;
+
 function game () {
 
-// functions get called and their values stored in those const variables.
-const computerSelection = getComputerChoice();
-const playerSelection = getPlayerChoice();
-
+    // playes five rounds.
 
     
+    for (let i = 0; i < 5; i++) {
+
+        // functions get called and their values stored in those const variables.
+        const computerSelection = getComputerChoice();
+        const playerSelection = getPlayerChoice();
+
+        // call the round function.
+        console.log(playRound(computerSelection, playerSelection));
+
+        // checks if 5 rounds have passed.
+        if(i === 4){
+
+            if(playerScore > computerScore) {
+                
+                console.log("Player score: " + playerScore + " Computer score: " + computerScore + "\nPlayer wins!");
+            }
+            else {
+                
+                console.log("Player score: " + playerScore + " Computer score: " + computerScore + "\nComputer wins!");
+            }
+
+            // sets scores back to zero.
+            playerScore = 0;
+            computerScore = 0;
+            break
+        }
+
+    } 
+
+    return 0;
 }
+
+ console.log(game());
