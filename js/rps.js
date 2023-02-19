@@ -59,7 +59,9 @@ function playRound (computerSelection, playerSelection) {
     // checks if player selection is valid.
     if (playerSelection === false){
 
-        return console.log("Player selection invalid.");
+        console.log("Player selection invalid. Please re-enter your choice.");
+
+        return false;
     }
     // checks for a tie.
     if (computerSelection === playerSelection) {
@@ -96,8 +98,22 @@ function game () {
         const computerSelection = getComputerChoice();
         const playerSelection = getPlayerChoice();
 
-        // call the round function.
-        console.log(playRound(computerSelection, playerSelection));
+        // play a round and store its result in the roundResult variable.
+        let roundResult = playRound(computerSelection, playerSelection);
+        
+        // terminates the game if input is invalid.
+
+        if (roundResult === false){
+
+            console.log("Invalid input.  game will terminate.");
+            
+            break
+        }
+
+        // prints round result to the console.
+        console.log(roundResult);
+
+        
 
         // checks if 5 rounds have passed.
         if(i === 4){
@@ -106,6 +122,12 @@ function game () {
                 
                 console.log("Player score: " + playerScore + " Computer score: " + computerScore + "\nPlayer wins!");
             }
+
+            else if (playerScore === computerScore){
+
+                console.log("Its a tie! both get to live another day.");
+            }
+
             else {
                 
                 console.log("Player score: " + playerScore + " Computer score: " + computerScore + "\nComputer wins!");
