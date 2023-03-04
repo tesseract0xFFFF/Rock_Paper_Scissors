@@ -74,43 +74,60 @@ function playRound (computerSelection, playerSelection) {
     const pScore = document.getElementById('playerScore');
     const counter = document.getElementById('counter');
 
-    // checks if player selection is valid. 
-    // UPDATE: player selection is no longer via input so i guess this piece is irrelevent.
-    if (playerSelection === false){
+    if(roundCounter < 5){
 
-        console.log("Player selection invalid. Please re-enter your choice.");
+        // checks if player selection is valid. 
+        // UPDATE: player selection is no longer via input so i guess this piece is irrelevent.
+        if (playerSelection === false){
 
-        return false;
+            console.log("Player selection invalid. Please re-enter your choice.");
+
+            return false;
+        }
+        // checks for a tie.
+        if (computerSelection === playerSelection) {
+            
+            roundCounter++;
+            pScore.textContent = `player:${playerScore}`;
+            cpuScore.textContent = `cpu:${computerScore}`;
+            counter.textContent = `round: ${roundCounter}`;
+            return roundResultBoard.textContent = "it's a tie!";
+        }
+    // checks all 3 possibilities in which player wins.
+        else if (playerSelection === 'rock' && computerSelection === 'scissors' || playerSelection === 'paper' && computerSelection === 'rock' || playerSelection === 'scissors' && computerSelection === 'paper') {
+
+            playerScore++;
+            roundCounter++;
+            pScore.textContent = `player:${playerScore}`;
+            cpuScore.textContent = `cpu:${computerScore}`;
+            counter.textContent = `round: ${roundCounter}`;
+            return roundResultBoard.textContent = "you win! " + playerSelection + " beats " + computerSelection;
+        }
+
+        else {
+
+            computerScore++;
+            roundCounter++;
+            pScore.textContent = `player:${playerScore}`;
+            cpuScore.textContent = `cpu:${computerScore}`;
+            counter.textContent = `round: ${roundCounter}`;
+            return roundResultBoard.textContent = "you lose! " + computerSelection + " beats " + playerSelection;
+        }
     }
-    // checks for a tie.
-    if (computerSelection === playerSelection) {
-        
-        roundCounter++;
-        pScore.textContent = `player:${playerScore}`;
-        cpuScore.textContent = `cpu:${computerScore}`;
-        counter.textContent = `round: ${roundCounter}`;
-        return roundResultBoard.textContent = "it's a tie!";
-    }
-// checks all 3 possibilities in which player wins.
-    else if (playerSelection === 'rock' && computerSelection === 'scissors' || playerSelection === 'paper' && computerSelection === 'rock' || playerSelection === 'scissors' && computerSelection === 'paper') {
+    else if(playerScore > computerScore){
 
-        playerScore++;
-        roundCounter++;
-        pScore.textContent = `player:${playerScore}`;
-        cpuScore.textContent = `cpu:${computerScore}`;
-        counter.textContent = `round: ${roundCounter}`;
-        return roundResultBoard.textContent = "you win! " + playerSelection + " beats " + computerSelection;
+        roundResultBoard.textContent = 'Player wins!';
     }
-
-    else {
-
-        computerScore++;
-        roundCounter++;
-        pScore.textContent = `player:${playerScore}`;
-        cpuScore.textContent = `cpu:${computerScore}`;
-        counter.textContent = `round: ${roundCounter}`;
-        return roundResultBoard.textContent = "you lose! " + computerSelection + " beats " + playerSelection;
+    else if (computerScore > playerScore){
+        roundResultBoard.textContent = 'Computer wins!';
     }
+    else{
+        roundResultBoard.textContent = 'Its a tie!';
+    }
+    // reset counters
+    computerScore = 0;
+    playerScore = 0;
+    roundCounter = 0;
 
 } 
 
