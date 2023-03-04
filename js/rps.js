@@ -10,53 +10,72 @@ function getComputerChoice () {
 
 
 // -------------
+// not relevant as player input goes via buttons.
 
-function getPlayerChoice () {
+// function getPlayerChoice () {
     // an array that stores valid player input.
-    const validPlayerChoices = ['Rock', 'Paper', 'Scissors'];
-    let arrayLength = validPlayerChoices.length;
-    let playerInput = prompt("Write down your choice");
-    let lowerCaseInput = playerInput.toLowerCase();
-    let verificationFlag = false; //flag value is true if there was a match or false if there wasn't.
-    let verifiedPlayerInput;
+    // const validPlayerChoices = ['Rock', 'Paper', 'Scissors'];
+    // let arrayLength = validPlayerChoices.length;
+    // let playerInput = prompt("Write down your choice");
+    // let lowerCaseInput = playerInput.toLowerCase();
+    // let verificationFlag = false; //flag value is true if there was a match or false if there wasn't.
+    // let verifiedPlayerInput;
     // goes through the validPlayerChoices array and tries to compare user input to its content.
-    for (i = 0; i <= (arrayLength - 1); i++) {
+    // for (i = 0; i <= (arrayLength - 1); i++) {
         // if there is a match, set the flag to 1 and break outside of the loop.
-        if (lowerCaseInput === validPlayerChoices[i].toLowerCase()){
-          verificationFlag = true;
-          break
-        }
-    }
+        // if (lowerCaseInput === validPlayerChoices[i].toLowerCase()){
+        //   verificationFlag = true;
+        //   break
+        // }
+    // }
     //in case of a match, store the player's input in the verifiedPlayerInput variable.
     //otherwise print "Invalid input" to the console.
-    if (verificationFlag === true) {
+    // if (verificationFlag === true) {
 
-         verifiedPlayerInput = lowerCaseInput;
-         return verifiedPlayerInput;
-    }
-    else {
+        //  verifiedPlayerInput = lowerCaseInput;
+    //      return verifiedPlayerInput;
+    // // }
+    // else {
         
-        return false; 
-    }
+    //     return false; 
+//     }
 
     
 
-}
+// }
 
-// -----------------
+// // -----------------
 
+// got the button elements.
+const btnR = document.querySelector(".btnR");
+const btnP = document.querySelector(".btnP");
+const btnS = document.querySelector(".btnS");
 
+// added event listeners on said buttons.
+btnR.addEventListener('click', () => playRound(getComputerChoice(), 'rock'));
+btnP.addEventListener('click', () => playRound(getComputerChoice(), 'paper'));
+btnS.addEventListener('click', () => playRound(getComputerChoice(), 'paper'));
 
-
+// those variables keep track of both computer and player scores.
+let playerScore = 0;
+let computerScore = 0;
+// round counter
+let roundCounter = 0;
 
 
 
 
 //  this function plays a round.
 function playRound (computerSelection, playerSelection) {
+    // creates a div element to show round results.
+    const roundResultBoard = document.getElementById('board');
+    // score counters and the round counter.
+    const cpuScore = document.getElementById('computerScore');
+    const pScore = document.getElementById('playerScore');
+    const counter = document.getElementById('counter');
 
-
-    // checks if player selection is valid.
+    // checks if player selection is valid. 
+    // UPDATE: player selection is no longer via input so i guess this piece is irrelevent.
     if (playerSelection === false){
 
         console.log("Player selection invalid. Please re-enter your choice.");
@@ -65,33 +84,42 @@ function playRound (computerSelection, playerSelection) {
     }
     // checks for a tie.
     if (computerSelection === playerSelection) {
-    
-        return "it's a tie!";
+        
+        roundCounter++;
+        pScore.textContent = `player:${playerScore}`;
+        cpuScore.textContent = `cpu:${computerScore}`;
+        counter.textContent = `round: ${roundCounter}`;
+        return roundResultBoard.textContent = "it's a tie!";
     }
 // checks all 3 possibilities in which player wins.
     else if (playerSelection === 'rock' && computerSelection === 'scissors' || playerSelection === 'paper' && computerSelection === 'rock' || playerSelection === 'scissors' && computerSelection === 'paper') {
 
         playerScore++;
-        return "you win! " + playerSelection + " beats " + computerSelection;
+        roundCounter++;
+        pScore.textContent = `player:${playerScore}`;
+        cpuScore.textContent = `cpu:${computerScore}`;
+        counter.textContent = `round: ${roundCounter}`;
+        return roundResultBoard.textContent = "you win! " + playerSelection + " beats " + computerSelection;
     }
 
     else {
 
         computerScore++;
-        return "you lose! " + computerSelection + " beats " + playerSelection;
+        roundCounter++;
+        pScore.textContent = `player:${playerScore}`;
+        cpuScore.textContent = `cpu:${computerScore}`;
+        counter.textContent = `round: ${roundCounter}`;
+        return roundResultBoard.textContent = "you lose! " + computerSelection + " beats " + playerSelection;
     }
 
 } 
 
-// those variables keep track of both computer and player scores.
-let playerScore = 0;
-let computerScore = 0;
+
 
 function game () {
 
     // playes five rounds.
 
-    
     for (let i = 0; i < 5; i++) {
 
         // functions get called and their values stored in those const variables.
@@ -101,7 +129,7 @@ function game () {
         // play a round and store its result in the roundResult variable.
         let roundResult = playRound(computerSelection, playerSelection);
         
-        // terminates the game if input is invalid.
+        // terminates the game if input is invalid. UPDATE: i guess it isn't relevant anymore.
 
         if (roundResult === false){
 
@@ -144,4 +172,4 @@ function game () {
     return 0;
 }
 
- console.log(game());
+//  console.log(game());
